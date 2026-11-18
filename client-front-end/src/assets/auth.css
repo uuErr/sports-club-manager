@@ -1,0 +1,196 @@
+.club-auth {
+  --auth-ink: #10261f;
+  --auth-muted: #52655c;
+  --auth-green: #11684f;
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(340px, 1fr);
+  min-height: 100vh;
+  min-height: 100svh;
+  color: var(--auth-ink);
+  background: #f7f9f5;
+  font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+}
+
+.club-auth, .club-auth * {
+  box-sizing: border-box;
+}
+
+.club-auth__cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  min-height: 100%;
+  padding: clamp(24px, 5vw, 76px);
+  color: #fff;
+  background:
+    linear-gradient(180deg, #0b24141a 35%, #0b2414db 100%),
+    #133f36 url("./courts-login.webp") center 68% / cover no-repeat;
+}
+
+.club-auth__brand {
+  margin: 0 0 12px;
+  font-size: clamp(30px, 5.3vw, 72px);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+}
+
+.club-auth__credit {
+  color: #f1f7f2;
+  font-size: 12px;
+  text-underline-offset: 3px;
+  text-decoration: underline;
+}
+
+.club-auth__main {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  min-width: 0;
+  padding: clamp(32px, 5vw, 72px);
+}
+
+.club-auth__panel {
+  width: min(100%, 380px);
+}
+
+.club-auth__heading {
+  margin: 0 0 28px;
+  color: var(--auth-ink);
+  font-size: clamp(28px, 3.2vw, 40px);
+  line-height: 1.22;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+}
+
+.club-auth__back {
+  display: inline-block;
+  margin-bottom: 22px;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.club-auth__actions, .club-auth__form {
+  display: grid;
+  gap: 12px;
+}
+
+.club-auth__label {
+  display: grid;
+  gap: 7px;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.club-auth__field,
+.club-auth__input {
+  min-height: 46px;
+  border: 1px solid #d9e4dc;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.club-auth__input {
+  width: 100%;
+  padding: 10px 13px;
+  color: inherit;
+  font: inherit;
+}
+
+.club-auth__field:focus-within,
+.club-auth__input:focus {
+  border-color: var(--auth-green);
+}
+
+.club-auth__button,
+.club-auth__button.van-button,
+.club-auth__button.layui-btn {
+  width: 100%;
+  min-height: 46px;
+  margin: 0;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.club-auth__button--primary,
+.club-auth__button--primary.van-button,
+.club-auth__button--primary.layui-btn {
+  border: 1px solid var(--auth-green);
+  background: var(--auth-green);
+  color: #fff;
+}
+
+.club-auth__button--primary:not(:disabled):hover {
+  background: #0b533f;
+}
+.club-auth__button:disabled {
+  opacity: .65;
+}
+
+.club-auth__button--secondary,
+.club-auth__button--secondary.van-button {
+  border: 1px solid #d4e2d8;
+  background: #fff;
+  color: var(--auth-green);
+}
+
+.club-auth__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin-top: 22px;
+  font-size: 14px;
+  color: var(--auth-muted);
+}
+
+.club-auth__links a, .club-auth__back, .club-auth__text-button {
+  color: var(--auth-green);
+}
+
+.club-auth__text-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.club-auth__text-button:hover,
+.club-auth__links a:hover,
+.club-auth__back:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.club-auth__notice {
+  margin: 16px 0 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--auth-muted);
+}
+
+@media (max-width: 700px) {
+  .club-auth {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+  }
+
+  .club-auth__cover {
+    min-height: clamp(172px, 29vh, 247px);
+    padding: 22px 24px;
+    background-position: center 71%;
+  }
+
+  .club-auth__brand {
+    font-size: clamp(28px, 7vw, 40px);
+  }
+
+  .club-auth__main {
+    align-content: start;
+    padding: 28px 24px 42px;
+  }
+}

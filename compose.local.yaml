@@ -1,0 +1,21 @@
+name: sports-club-local
+
+services:
+  mysql:
+    ports: !override
+      - "127.0.0.1:13306:3306"
+    restart: "no"
+  backend:
+    build:
+      dockerfile: Dockerfile.local
+    ports: !override
+      - "127.0.0.1:8081:8081"
+    restart: "no"
+  client:
+    ports: !override
+      - "127.0.0.1:8080:80"
+    restart: "no"
+  admin:
+    ports: !override
+      - "127.0.0.1:8082:80"
+    restart: "no"
