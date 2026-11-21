@@ -60,6 +60,19 @@ def tx() -> Iterator[Connection]:
         yield conn
 
 
+@contextmanager
+def booking_tx() -> Iterator[Connection]:
+    with engine.connect() as conn:
+        if conn.dialect.name == "mysql":
+            # The count after acquiring the activity lock must see the preceding booking.
+            conn = conn.execution_options(isolation_level="READ COMMITTED")
+        with conn.begin():
+            if conn.dialect.name == "sqlite":
+                # Reserve the write transaction before reading the available capacity.
+                conn.exec_driver_sql("BEGIN IMMEDIATE")
+            yield conn
+
+
 def fetch_one(conn: Connection, sql: str, params: dict | None = None) -> dict | None:
     row = conn.execute(text(sql), params or {}).mappings().first()
     return normalize_row(row) if row else None

@@ -4,7 +4,7 @@ import uuid
 
 from fastapi import APIRouter, Query
 
-from ..db import exec_one, fetch_all, fetch_one, tx
+from ..db import booking_tx, exec_one, fetch_all, fetch_one, tx
 from ..response import vo
 from .common import token_verify_member
 
@@ -87,7 +87,7 @@ def query_wechat_group(token: str = Query(""), record_id: int = Query(...)):
 
 @router.post("/attendAction")
 def attend_action(token: str = Query(""), action_id: int = Query(...), borrow: bool = Query(False)):
-    with tx() as conn:
+    with booking_tx() as conn:
         status, user = token_verify_member(conn, token)
         if status <= 0 or not user:
             return vo(-2, "Login Incorrect")
@@ -95,7 +95,10 @@ def attend_action(token: str = Query(""), action_id: int = Query(...), borrow: b
         if int(user.get("state") or 0) != 2:
             return vo(-1, "Identify Incorrect")
 
-        action = fetch_one(conn, "select * from actions where ID=:id", {"id": action_id})
+        action_sql = "select * from actions where ID=:id"
+        if conn.dialect.name == "mysql":
+            action_sql += " for update"
+        action = fetch_one(conn, action_sql, {"id": action_id})
         if not action or int(action.get("state") or 0) != 2:
             return vo(0, "No action")
 
